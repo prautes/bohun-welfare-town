@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>보훈복지타운 - 보훈 가족의 삶을 꽃피우는 따뜻한 동행</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800&display=swap');
+        
+        :root {
+            --primary-blue: #1e40af;
+            --light-bg-blue: #e0f2fe;
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f8fafc;
+            font-size: 18px; 
+            line-height: 1.7;
+            color: #1e293b;
+        }
+
+        .hero-section {
+            height: 550px;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.7) 20%, rgba(0, 0, 0, 0.2) 100%), 
+                        url('복지타운걷다.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            color: white;
+        }
+
+        .hero-content { max-width: 800px; padding-left: 5%; }
+        .hero-title { font-size: 3.5rem; font-weight: 800; text-align: left; line-height: 1.3; text-shadow: 2px 2px 15px rgba(0,0,0,0.6); }
+        .hero-subtitle { font-size: 1.7rem; font-weight: 400; text-align: left; margin-top: 1rem; text-shadow: 1px 1px 8px rgba(0,0,0,0.6); }
+
+        .condition-bar {
+            height: 60px;
+            background-color: var(--light-bg-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid #bae6fd;
+        }
+
+        .logo-img { height: 70px; width: auto; object-fit: contain; }
+
+        .nav-tab.active {
+            background-color: var(--primary-blue);
+            color: white;
+            box-shadow: 0 4px 15px rgba(30, 64, 175, 0.4);
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #0f172a;
+            border-left: 8px solid var(--primary-blue);
+            padding-left: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.6s ease-out; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-custom {
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .law-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .law-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        .law-card.selected {
+            border-color: var(--primary-blue);
+            background-color: #f0f7ff;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background-color: #000;
+            border-radius: 24px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .video-container img {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        .play-button {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px; height: 80px;
+            background: rgba(255, 0, 0, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .condition-bar { height: auto; padding: 15px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Contact Bar -->
+    <div class="bg-orange-500 text-white py-3 px-4 sticky top-0 z-[60] shadow-lg">
+        <div class="max-w-7xl mx-auto flex justify-between items-center flex-wrap gap-2">
+            <div class="font-bold text-xl"><i class="fas fa-phone-alt mr-2"></i> 입주상담: <span class="text-yellow-300">031-250-1573</span></div>
+            <div class="flex gap-4">
+                <a href="https://pf.kakao.com/_xdnxjAG" target="_blank" class="bg-yellow-400 text-yellow-900 px-5 py-2 rounded-full font-bold text-sm">카톡 건강지키미</a>
+                <a href="https://www.youtube.com/@Bohun-Welfare-Town" target="_blank" class="bg-red-600 text-white px-5 py-2 rounded-full font-bold text-sm">공식 유튜브</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white border-b py-5">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <a href="/"><img src="복지타운로고.png" alt="보훈복지타운 로고" class="logo-img" onerror="this.alt='보훈복지타운'"></a>
+            <div class="hidden lg:block text-slate-500 font-semibold">국가유공자의 명예로운 노후를 함께합니다</div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h2 class="hero-title">명예로운 헌신,<br>평안한 노후로 답합니다</h2>
+            <p class="hero-subtitle">광교산 숲세권의 쾌적한 주거환경과 맞춤형 의료지원 시스템</p>
+        </div>
+    </section>
+
+    <!-- Conditions Bar -->
+    <div class="condition-bar">
+        <div class="max-w-7xl mx-auto px-6 flex flex-wrap justify-center items-center gap-4 md:gap-12">
+            <div class="flex items-center gap-2">
+                <span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded font-bold">공통조건</span>
+                <span class="text-blue-900 font-bold">만 19세 이상 무주택자</span>
+            </div>
+            <div class="w-px h-4 bg-blue-200 hidden md:block"></div>
+            <div class="text-blue-900 font-bold">독신 또는 부부 세대</div>
+            <div class="w-px h-4 bg-blue-200 hidden md:block"></div>
+            <div class="text-blue-700 font-bold"><i class="fas fa-walking mr-1"></i> 인지 및 거동 가능자</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 py-16">
+        <!-- Navigation Tabs -->
+        <nav class="flex flex-wrap justify-center gap-4 mb-20">
+            <button onclick="switchTab('overview')" id="tab-overview" class="nav-tab active px-8 md:px-12 py-5 rounded-2xl font-bold text-lg md:text-xl shadow-md transition-all">타운 소개</button>
+            <button onclick="switchTab('eligibility')" id="tab-eligibility" class="nav-tab bg-white border border-slate-200 px-8 md:px-12 py-5 rounded-2xl font-bold text-lg md:text-xl shadow-sm transition-all">입주 자격</button>
+            <button onclick="switchTab('process')" id="tab-process" class="nav-tab bg-white border border-slate-200 px-8 md:px-12 py-5 rounded-2xl font-bold text-lg md:text-xl shadow-sm transition-all">입주 절차</button>
+            <button onclick="switchTab('services')" id="tab-services" class="nav-tab bg-white border border-slate-200 px-8 md:px-12 py-5 rounded-2xl font-bold text-lg md:text-xl shadow-sm transition-all">거주 서비스</button>
+        </nav>
+
+        <!-- Tab 1: Overview -->
+        <div id="content-overview" class="tab-content active">
+            <h3 class="section-title">보훈복지타운 소개</h3>
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="card-custom text-center">
+                    <div class="text-5xl mb-4 text-blue-600"><i class="fas fa-home"></i></div>
+                    <h4 class="text-2xl font-bold">452세대 대단지</h4>
+                    <p class="text-slate-500 mt-2">안전하고 평온한 보훈가족 전용 주거</p>
+                </div>
+                <div class="card-custom text-center">
+                    <div class="text-5xl mb-4 text-green-600"><i class="fas fa-leaf"></i></div>
+                    <h4 class="text-2xl font-bold">광교산 숲세권</h4>
+                    <p class="text-slate-500 mt-2">수려한 자연경관과 맑은 공기</p>
+                </div>
+                <div class="card-custom text-center">
+                    <div class="text-5xl mb-4 text-red-500"><i class="fas fa-user-nurse"></i></div>
+                    <h4 class="text-2xl font-bold">전문 의료지원</h4>
+                    <p class="text-slate-500 mt-2">인근 보훈원 연계 전문 간호 서비스</p>
+                </div>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-8 items-stretch">
+                <div class="card-custom">
+                    <h4 class="text-2xl font-bold mb-6 flex items-center gap-3"><i class="fas fa-info-circle text-blue-600"></i> 시설 운영 목적</h4>
+                    <p class="text-slate-600 mb-6 italic font-medium">"국가를 위해 헌신하신 유공자분들의 명예로운 노후를 위해 설립되었습니다."</p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="text-blue-500 mt-1"><i class="fas fa-check"></i></span>
+                            <span>무주택 고령 유공자를 위한 안정적인 주거 공간 제공</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-blue-500 mt-1"><i class="fas fa-check"></i></span>
+                            <span>건강 관리와 여가 활동이 결합된 맞춤형 복지 서비스</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-blue-500 mt-1"><i class="fas fa-check"></i></span>
+                            <span>함께 살아가는 보훈 가족들간의 따뜻한 공동체 형성</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-custom">
+                    <h4 class="text-2xl font-bold mb-6 flex items-center gap-3"><i class="fab fa-youtube text-red-600"></i> 타운 둘러보기 영상</h4>
+                    <div class="video-container" onclick="loadVideo(this, 'AGO05i08ha0')">
+                        <img src="https://img.youtube.com/vi/AGO05i08ha0/maxresdefault.jpg" alt="유튜브 썸네일">
+                        <div class="play-button"><i class="fas fa-play"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Eligibility -->
+        <div id="content-eligibility" class="tab-content">
+            <h3 class="section-title">입주 자격 안내</h3>
+            
+            <div class="mb-12">
+                <h4 class="text-2xl font-bold mb-6 text-slate-800"><i class="fas fa-id-card text-blue-600 mr-2"></i>법률별 입주 대상 범위</h4>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    <div onclick="showLawDetail('national')" id="law-btn-national" class="law-card card-custom !p-6 flex flex-col items-center text-center selected">
+                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4 text-xl">
+                            <i class="fas fa-flag"></i>
+                        </div>
+                        <span class="font-bold">국가유공자법</span>
+                    </div>
+                    <div onclick="showLawDetail('indep')" id="law-btn-indep" class="law-card card-custom !p-6 flex flex-col items-center text-center">
+                        <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-4 text-xl">
+                            <i class="fas fa-hands"></i>
+                        </div>
+                        <span class="font-bold">독립유공자법</span>
+                    </div>
+                    <div onclick="showLawDetail('demo')" id="law-btn-demo" class="law-card card-custom !p-6 flex flex-col items-center text-center">
+                        <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mb-4 text-xl">
+                            <i class="fas fa-fist-raised"></i>
+                        </div>
+                        <span class="font-bold">5·18 유공자법</span>
+                    </div>
+                    <div onclick="showLawDetail('special')" id="law-btn-special" class="law-card card-custom !p-6 flex flex-col items-center text-center">
+                        <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center mb-4 text-xl">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <span class="font-bold">특수임무유공자법</span>
+                    </div>
+                </div>
+
+                <div id="law-detail-container" class="card-custom bg-slate-50 min-h-[250px]">
+                    <div id="law-national" class="law-content">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-3 h-8 bg-blue-600 rounded-full"></div>
+                            <h5 class="text-2xl font-bold">국가유공자법 적용 대상</h5>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-x-12 gap-y-4">
+                            <ul class="space-y-2">
+                                <li>• 전상군경, 공상군경</li>
+                                <li>• 무공수훈자, 보국수훈자</li>
+                                <li>• 6·25 및 월남 참전유공자</li>
+                                <li>• 재일학도의용군인</li>
+                            </ul>
+                            <ul class="space-y-2">
+                                <li>• 4·19혁명 부상자 및 공로자</li>
+                                <li>• 공상공무원 및 특별공로자</li>
+                                <li class="font-bold text-blue-700">• 위 대상자의 선순위 유족 (배우자 등)</li>
+                                <li class="font-bold text-orange-600">• (유족 자녀) 선순위 유족인 자녀만 가능</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="law-indep" class="law-content hidden">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-3 h-8 bg-green-600 rounded-full"></div>
+                            <h5 class="text-2xl font-bold">독립유공자법 적용 대상</h5>
+                        </div>
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-2">• 독립유공자 본인 (애국지사)</li>
+                            <li class="flex items-center gap-2">• 독립유공자의 유족 또는 가족 (배우자, 자녀, 손자녀 포함)</li>
+                        </ul>
+                    </div>
+
+                    <div id="law-demo" class="law-content hidden">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-3 h-8 bg-orange-600 rounded-full"></div>
+                            <h5 class="text-2xl font-bold">5·18 민주유공자법 적용 대상</h5>
+                        </div>
+                        <ul class="space-y-3">
+                            <li>• 5·18 민주화운동 부상자 및 희생자</li>
+                            <li>• 5·18 민주유공자의 유족 또는 가족 중 선순위 유족</li>
+                        </ul>
+                    </div>
+
+                    <div id="law-special" class="law-content hidden">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-3 h-8 bg-red-600 rounded-full"></div>
+                            <h5 class="text-2xl font-bold">특수임무유공자법 적용 대상</h5>
+                        </div>
+                        <ul class="space-y-3">
+                            <li>• 특수임무부상자 및 공로자</li>
+                            <li>• 특수임무유공자의 유족 또는 가족 중 선순위 유족</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-custom border-2 border-blue-100 mb-8">
+                <h4 class="text-2xl font-bold mb-6 flex items-center gap-3 text-blue-800"><i class="fas fa-exclamation-circle"></i> 입주 시 필수 확인 조건</h4>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-blue-50 p-6 rounded-2xl">
+                        <h5 class="font-bold mb-3 text-lg">주거 및 연령 조건</h5>
+                        <ul class="space-y-2 text-slate-700">
+                            <li>• 만 19세 이상 (대부분 고령자 위주)</li>
+                            <li>• 무주택 세대주 (세대원 전원 무주택)</li>
+                            <li>• 독신 또는 부부 세대 (자녀 합가 불가)</li>
+                        </ul>
+                    </div>
+                    <div class="bg-green-50 p-6 rounded-2xl">
+                        <h5 class="font-bold mb-3 text-lg">건강 상태 조건</h5>
+                        <ul class="space-y-2 text-slate-700">
+                            <li>• 인지 능력이 정상이며 의사소통 가능자</li>
+                            <li>• 일상생활(보행, 식사 등)이 자립 가능한 자</li>
+                            <li>• 전염성 질환이 없는 자</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Process -->
+        <div id="content-process" class="tab-content">
+            <h3 class="section-title">입주 절차 안내</h3>
+            <div class="card-custom mb-12">
+                <p class="text-slate-600 mb-10 text-center text-lg">보훈복지타운 입주는 엄격한 심사를 통해 공정하게 진행됩니다.</p>
+                
+                <div class="relative">
+                    <!-- Progress Line -->
+                    <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-blue-100 -translate-y-1/2 z-0"></div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-6 relative z-10">
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center">
+                            <div class="w-12 h-12 bg-blue-800 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-4">1</div>
+                            <h5 class="font-bold mb-2">상담 및 접수</h5>
+                            <p class="text-sm text-slate-500">입주 자격 확인 및<br>서류 제출</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center">
+                            <div class="w-12 h-12 bg-blue-700 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-4">2</div>
+                            <h5 class="font-bold mb-2">능력 검사</h5>
+                            <p class="text-sm text-slate-500">인지 및 일상생활<br>수행능력 평가</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center">
+                            <div class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-4">3</div>
+                            <h5 class="font-bold mb-2">의료 진단</h5>
+                            <p class="text-sm text-slate-500">보훈원 의무실<br>입주 소견서 발급</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center">
+                            <div class="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-4">4</div>
+                            <h5 class="font-bold mb-2">운영 심의</h5>
+                            <p class="text-sm text-slate-500">운영위원회 심의 및<br>최종 입주 의결</p>
+                        </div>
+                        <div class="bg-orange-500 text-white p-6 rounded-2xl text-center shadow-lg transform scale-105">
+                            <div class="w-12 h-12 bg-white text-orange-600 rounded-full flex items-center justify-center font-bold mx-auto mb-4">5</div>
+                            <h5 class="font-bold mb-2">입주 확정</h5>
+                            <p class="text-sm text-white/90">약정 체결 및<br>호실 배정·입주</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-custom bg-slate-50">
+                <h4 class="text-xl font-bold mb-6 tracking-tight"><i class="fas fa-file-alt mr-2 text-blue-600"></i> 제출 준비 서류</h4>
+                <div class="grid md:grid-cols-2 gap-6 text-base">
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-2"><i class="far fa-file"></i> 입주신청서 (단지 비치)</li>
+                        <li class="flex items-center gap-2"><i class="far fa-file"></i> 유공자 증명서 및 유족 증명서</li>
+                        <li class="flex items-center gap-2"><i class="far fa-file"></i> 주민등록등본 및 초본</li>
+                    </ul>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-2"><i class="far fa-file"></i> 지방세 세목별 과세증명서 (무주택 확인용)</li>
+                        <li class="flex items-center gap-2"><i class="far fa-file"></i> 건강진단서 (국공립 병원)</li>
+                        <li class="flex items-center gap-2"><i class="far fa-file"></i> 가족관계증명서</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 4: Services -->
+        <div id="content-services" class="tab-content">
+            <h3 class="section-title">거주 및 생활 서비스</h3>
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="card-custom group hover:border-blue-300 transition-colors">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center text-2xl shadow-sm">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-slate-800">의료 및 건강 지원</h4>
+                    </div>
+                    <ul class="space-y-4 text-slate-600">
+                        <li class="flex items-start gap-3">
+                            <span class="text-red-400 mt-1"><i class="fas fa-circle text-[8px]"></i></span>
+                            <span><strong>간호사 상주 케어:</strong> 보훈원 연계 전문 간호 인력의 기초 건강 상담 및 복약 지도</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-red-400 mt-1"><i class="fas fa-circle text-[8px]"></i></span>
+                            <span><strong>전용 셔틀 운영:</strong> 중앙보훈병원 등 대형 의료기관 정기 셔틀 버스 운행</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-red-400 mt-1"><i class="fas fa-circle text-[8px]"></i></span>
+                            <span><strong>응급 시스템:</strong> 세대 내 비상벨 호출 시스템을 통한 24시간 긴급 대응</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card-custom group hover:border-orange-300 transition-colors">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 bg-orange-100 text-orange-600 rounded-2xl flex items-center justify-center text-2xl shadow-sm">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-slate-800">급식 및 생활 편의</h4>
+                    </div>
+                    <ul class="space-y-4 text-slate-600">
+                        <li class="flex items-start gap-3">
+                            <span class="text-orange-400 mt-1"><i class="fas fa-circle text-[8px]"></i></span>
+                            <span><strong>영양 식단:</strong> 전문 영양사가 설계한 보훈가족 맞춤형 균형 식단 제공 (식당 이용)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-orange-400 mt-1"><i class="fas fa-circle text-[8px]"></i></span>
+                            <span><strong>시설 관리:</strong> 노인 맞춤형 무장애(Barrier-free) 환경 구축 및 유지 보수</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-orange-400 mt-1"><i class="fas fa-circle text-[8px]"></i></span>
+                            <span><strong>환경 미화:</strong> 쾌적한 주거 단지 조성을 위한 정기적인 소독 및 청소 지원</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card-custom group hover:border-green-300 transition-colors">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center text-2xl shadow-sm">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-slate-800">문화 및 여가 프로그램</h4>
+                    </div>
+                    <ul class="space-y-4 text-slate-600">
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-400 mt-1"><i class="fas fa-circle text-[8px]"></i></span>
+                            <span><strong>취미 교실:</strong> 서예, 노래교실, 실버 요가 등 활기찬 노후를 위한 강좌 운영</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-400 mt-1"><i class="fas fa-circle text-[8px]"></i></span>
+                            <span><strong>특별 행사:</strong> 명절 위안 잔치, 보훈 기념일 행사 및 단체 여행 프로그램</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card-custom group hover:border-purple-300 transition-colors">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center text-2xl shadow-sm">
+                            <i class="fas fa-users-cog"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-slate-800">정서 지원 서비스</h4>
+                    </div>
+                    <ul class="space-y-4 text-slate-600">
+                        <li class="flex items-start gap-3">
+                            <span class="text-purple-400 mt-1"><i class="fas fa-circle text-[8px]"></i></span>
+                            <span><strong>전문 상담:</strong> 고령자 심리 안정 및 우울증 예방을 위한 전문 심리 상담</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-purple-400 mt-1"><i class="fas fa-circle text-[8px]"></i></span>
+                            <span><strong>사회적 유대:</strong> 자율 자치 조직 운영을 통한 입주민 간 화합 도모</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Professional Footer -->
+    <footer class="bg-[#1e293b] text-[#94a3b8] py-16 px-6 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col lg:flex-row justify-between items-start gap-12 pb-12 border-b border-slate-800">
+                <!-- Brand Info -->
+                <div class="lg:max-w-md text-left">
+                    <div class="flex items-center gap-3 mb-6">
+                        <img src="복지타운로고.png" alt="보훈복지타운" class="h-10 w-auto brightness-0 invert opacity-90" onerror="this.style.display='none'">
+                        <div class="h-6 w-px bg-slate-700"></div>
+                        <span class="text-white font-bold text-lg tracking-tight">한국보훈복지의료공단 보훈원</span>
+                    </div>
+                    <p class="text-sm leading-relaxed mb-6">
+                        국가를 위해 헌신하신 국가유공자와 그 가족분들이 건강하고 명예로운 노후를 보내실 수 있도록 최상의 복지 서비스를 제공하는 국가 보훈 전문 기관입니다.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.youtube.com/@Bohun-Welfare-Town" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-red-600 hover:text-white transition-colors"><i class="fab fa-youtube"></i></a>
+                        <a href="https://pf.kakao.com/_xdnxjAG" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-yellow-500 hover:text-slate-900 transition-colors"><i class="fas fa-comment"></i></a>
+                    </div>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 text-left">
+                    <div>
+                        <h5 class="text-white font-bold mb-5 uppercase tracking-wider text-sm">입주 및 시설 문의</h5>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-phone-alt mt-1 text-blue-400"></i>
+                                <div>
+                                    <p class="text-xs text-slate-500 uppercase font-semibold">대표번호 (상담실)</p>
+                                    <p class="text-xl font-bold text-white">031-250-1573</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-fax mt-1 text-slate-500"></i>
+                                <div>
+                                    <p class="text-xs text-slate-500 uppercase font-semibold">팩스번호</p>
+                                    <p class="text-base text-slate-300">031-242-4634</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h5 class="text-white font-bold mb-5 uppercase tracking-wider text-sm">오시는 길</h5>
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt mt-1 text-red-400"></i>
+                            <div>
+                                <p class="text-slate-300 leading-snug">
+                                    (16215) 경기도 수원시 장안구<br>수일로 336번길 9 (조원동)
+                                </p>
+                                <a href="https://map.naver.com" target="_blank" class="text-xs text-blue-400 mt-2 inline-block hover:underline">네이버 지도에서 보기 →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Legal -->
+            <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+                <div class="flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-2">
+                    <a href="#" class="text-slate-300 font-bold hover:text-white">개인정보처리방침</a>
+                    <a href="#" class="hover:text-white">이용약관</a>
+                    <a href="#" class="hover:text-white">이메일무단수집거부</a>
+                    <a href="https://www.bohun.or.kr" target="_blank" class="hover:text-white">한국보훈복지의료공단 바로가기</a>
+                </div>
+                <p>© 2025 KOREA VETERANS WELFARE & MEDICINE CORPORATION. ALL RIGHTS RESERVED.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function switchTab(tabId) {
+            // 모든 탭 내용 숨기기
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            // 모든 탭 버튼 비활성 스타일
+            document.querySelectorAll('.nav-tab').forEach(t => {
+                t.classList.remove('active');
+                t.classList.add('bg-white', 'border-slate-200');
+            });
+            
+            // 선택된 탭 내용 보이기
+            const targetContent = document.getElementById('content-' + tabId);
+            if(targetContent) targetContent.classList.add('active');
+            
+            // 선택된 탭 버튼 활성 스타일
+            const btn = document.getElementById('tab-' + tabId);
+            if(btn) {
+                btn.classList.add('active');
+                btn.classList.remove('bg-white', 'border-slate-200');
+            }
+        }
+
+        function showLawDetail(lawType) {
+            // 모든 하위 법률 상세 내용 숨기기
+            document.querySelectorAll('.law-content').forEach(content => content.classList.add('hidden'));
+            // 모든 법률 카드 비활성 스타일
+            document.querySelectorAll('.law-card').forEach(card => card.classList.remove('selected'));
+            
+            // 선택된 법률 내용 및 카드 활성화
+            const targetContent = document.getElementById('law-' + lawType);
+            const targetBtn = document.getElementById('law-btn-' + lawType);
+            
+            if(targetContent && targetBtn) {
+                targetContent.classList.remove('hidden');
+                targetBtn.classList.add('selected');
+            }
+        }
+
+        function loadVideo(container, videoId) {
+            container.innerHTML = `<iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/${videoId}?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+        }
+
+        window.onload = function() {
+            // 초기 법률 상세 표시
+            showLawDetail('national');
+        }
+    </script>
+</body>
+</html>
